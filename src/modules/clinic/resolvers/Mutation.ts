@@ -6,11 +6,11 @@ const QueryResolver: ClinicModule.Resolvers = {
     createClinic(_, { clinicInput }, { injector }: GraphQLModules.Context) {
       return injector.get(ClinicProvider).createClinic(clinicInput);
     },
-    updateClinic(_, { id, clinicInput }, { injector }: GraphQLModules.Context) {
-      return injector.get(ClinicProvider).updateClinic(id, clinicInput);
+    updateClinic(_, { clinicId, clinicInput }, { injector }: GraphQLModules.Context) {
+      return injector.get(ClinicProvider).updateClinic(clinicId, clinicInput);
     },
-    deleteClinic(_, { id }, { injector }: GraphQLModules.Context) {
-      return injector.get(ClinicProvider).deleteClinic(id);
+    deleteClinic(_, { clinicId }, { injector }: GraphQLModules.Context) {
+      return injector.get(ClinicProvider).deleteClinic(clinicId);
     },
   },
 };

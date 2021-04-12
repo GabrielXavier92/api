@@ -30,7 +30,7 @@ export type MutationCreateClinicArgs = {
 
 
 export type MutationDeleteClinicArgs = {
-  id: Scalars['ID'];
+  clinicId: Scalars['ID'];
 };
 
 
@@ -45,7 +45,7 @@ export type MutationSignUpArgs = {
 
 
 export type MutationUpdateClinicArgs = {
-  id: Scalars['ID'];
+  clinicId: Scalars['ID'];
   clinicInput: ClinicInput;
 };
 
@@ -75,7 +75,7 @@ export type Query = {
 
 
 export type QueryClinicArgs = {
-  id: Scalars['ID'];
+  clinicId: Scalars['ID'];
 };
 
 
@@ -246,10 +246,10 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createClinic?: Resolver<ResolversTypes['CreatedClinic'], ParentType, ContextType, RequireFields<MutationCreateClinicArgs, 'clinicInput'>>;
-  deleteClinic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteClinicArgs, 'id'>>;
+  deleteClinic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteClinicArgs, 'clinicId'>>;
   signIn?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'signInInput'>>;
   signUp?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'signUpInput'>>;
-  updateClinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<MutationUpdateClinicArgs, 'id' | 'clinicInput'>>;
+  updateClinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<MutationUpdateClinicArgs, 'clinicId' | 'clinicInput'>>;
 };
 
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
@@ -258,7 +258,7 @@ export type AuthResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  clinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<QueryClinicArgs, 'id'>>;
+  clinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<QueryClinicArgs, 'clinicId'>>;
   clinics?: Resolver<Maybe<Array<Maybe<ResolversTypes['Clinic']>>>, ParentType, ContextType>;
   doctor?: Resolver<Maybe<ResolversTypes['Doctor']>, ParentType, ContextType, RequireFields<QueryDoctorArgs, 'id'>>;
   specialty?: Resolver<Maybe<ResolversTypes['Specialty']>, ParentType, ContextType, RequireFields<QuerySpecialtyArgs, 'id'>>;

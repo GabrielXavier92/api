@@ -1,12 +1,12 @@
 extend type Query {
-  clinic(id: ID!): Clinic!
+  clinic(clinicId: ID!): Clinic!
   clinics: [Clinic]
 }
 
 extend type Mutation {
   createClinic(clinicInput: ClinicInput!): CreatedClinic!
-  updateClinic(id: ID!, clinicInput: ClinicInput!): Clinic!
-  deleteClinic(id: ID!): Boolean
+  updateClinic(clinicId: ID!, clinicInput: ClinicInput!): Clinic!
+  deleteClinic(clinicId: ID!): Boolean
 }
 
 type CreatedClinic {

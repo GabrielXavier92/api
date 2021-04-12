@@ -3,7 +3,8 @@ import { AuthorizatedMiddleware } from './utils';
 
 const QueryMiddleware = {
   Query: {
-    clinic: [AuthenticatedMiddleware, AuthorizatedMiddleware('ADMIN')],
+    clinic: [AuthenticatedMiddleware, AuthorizatedMiddleware(['ADMIN', 'USER'])],
+    clinics: [AuthenticatedMiddleware, AuthorizatedMiddleware(['ADMIN', 'USER'])],
   },
 };
 
