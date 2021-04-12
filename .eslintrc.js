@@ -18,5 +18,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'implicit-arrow-linebreak': 'off',
     'class-methods-use-this': 'off',
+    'operator-linebreak': 'off',
   },
 };
