@@ -8,7 +8,8 @@
     "codegen": "yarn graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma-generate-schemas": "npx prisma generate",
-    "prisma-push": "npx prisma db push --preview-feature --preview-feature"
+    "prisma-push": "npx prisma db push --preview-feature",
+    "prisma-migrate": "npx prisma migrate dev --preview-feature"
   },
   "keywords": [],
   "author": "",
