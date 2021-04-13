@@ -1,8 +1,37 @@
 type Query {
-  doctor(id: ID!): Doctor
+  doctor(doctorId: ID!): Doctor!
+  doctors(clinicId: ID!): [Doctor!]
+}
+
+extend type Mutation {
+  createDoctor(doctorInput: DoctorInput!): Doctor!
+  updateDoctor(doctorId: ID!, doctorInput: DoctorInput!): Doctor!
+  deleteDoctor(doctorId: ID!): Boolean
 }
 
 type Doctor {
   id: ID!
   name: String!
+  cro: String!
+  celphone: Float
+  email: String
+  country: String
+  state: String
+  city: String
+  address: String
+  complement: String
+}
+
+input DoctorInput {
+  clinicId: ID!
+  name: String!
+  cro: String!
+  celphone: Float
+  email: String
+  country: String
+  state: String
+  city: String
+  address: String
+  complement: String
+  specialties: [ID!]!
 }

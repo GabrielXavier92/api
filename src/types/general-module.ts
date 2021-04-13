@@ -17,10 +17,13 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   createClinic: CreatedClinic;
+  createDoctor: Doctor;
   deleteClinic?: Maybe<Scalars['Boolean']>;
+  deleteDoctor?: Maybe<Scalars['Boolean']>;
   signIn?: Maybe<Auth>;
   signUp?: Maybe<Auth>;
   updateClinic: Clinic;
+  updateDoctor: Doctor;
 };
 
 
@@ -29,8 +32,18 @@ export type MutationCreateClinicArgs = {
 };
 
 
+export type MutationCreateDoctorArgs = {
+  doctorInput: DoctorInput;
+};
+
+
 export type MutationDeleteClinicArgs = {
   clinicId: Scalars['ID'];
+};
+
+
+export type MutationDeleteDoctorArgs = {
+  doctorId: Scalars['ID'];
 };
 
 
@@ -47,6 +60,12 @@ export type MutationSignUpArgs = {
 export type MutationUpdateClinicArgs = {
   clinicId: Scalars['ID'];
   clinicInput: ClinicInput;
+};
+
+
+export type MutationUpdateDoctorArgs = {
+  doctorId: Scalars['ID'];
+  doctorInput: DoctorInput;
 };
 
 export type Auth = {
@@ -69,7 +88,8 @@ export type Query = {
   __typename?: 'Query';
   clinic: Clinic;
   clinics?: Maybe<Array<Maybe<Clinic>>>;
-  doctor?: Maybe<Doctor>;
+  doctor: Doctor;
+  doctors?: Maybe<Array<Doctor>>;
   specialty?: Maybe<Specialty>;
 };
 
@@ -80,7 +100,12 @@ export type QueryClinicArgs = {
 
 
 export type QueryDoctorArgs = {
-  id: Scalars['ID'];
+  doctorId: Scalars['ID'];
+};
+
+
+export type QueryDoctorsArgs = {
+  clinicId: Scalars['ID'];
 };
 
 
@@ -120,9 +145,31 @@ export type ClinicInput = {
 
 export type Doctor = {
   __typename?: 'Doctor';
+  address?: Maybe<Scalars['String']>;
+  celphone?: Maybe<Scalars['Float']>;
+  city?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  cro: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   name: Scalars['String'];
   specialties?: Maybe<Array<Maybe<Specialty>>>;
+  state?: Maybe<Scalars['String']>;
+};
+
+export type DoctorInput = {
+  clinicId: Scalars['ID'];
+  name: Scalars['String'];
+  cro: Scalars['String'];
+  celphone?: Maybe<Scalars['Float']>;
+  email?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  complement?: Maybe<Scalars['String']>;
+  specialties: Array<Scalars['ID']>;
 };
 
 export type Specialty = {
@@ -223,6 +270,8 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   ClinicInput: ClinicInput;
   Doctor: ResolverTypeWrapper<Doctor>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  DoctorInput: DoctorInput;
   Specialty: ResolverTypeWrapper<Specialty>;
 };
 
@@ -241,15 +290,20 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   ClinicInput: ClinicInput;
   Doctor: Doctor;
+  Float: Scalars['Float'];
+  DoctorInput: DoctorInput;
   Specialty: Specialty;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createClinic?: Resolver<ResolversTypes['CreatedClinic'], ParentType, ContextType, RequireFields<MutationCreateClinicArgs, 'clinicInput'>>;
+  createDoctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<MutationCreateDoctorArgs, 'doctorInput'>>;
   deleteClinic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteClinicArgs, 'clinicId'>>;
+  deleteDoctor?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteDoctorArgs, 'doctorId'>>;
   signIn?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'signInInput'>>;
   signUp?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'signUpInput'>>;
   updateClinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<MutationUpdateClinicArgs, 'clinicId' | 'clinicInput'>>;
+  updateDoctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<MutationUpdateDoctorArgs, 'doctorId' | 'doctorInput'>>;
 };
 
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
@@ -260,7 +314,8 @@ export type AuthResolvers<ContextType = any, ParentType extends ResolversParentT
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   clinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<QueryClinicArgs, 'clinicId'>>;
   clinics?: Resolver<Maybe<Array<Maybe<ResolversTypes['Clinic']>>>, ParentType, ContextType>;
-  doctor?: Resolver<Maybe<ResolversTypes['Doctor']>, ParentType, ContextType, RequireFields<QueryDoctorArgs, 'id'>>;
+  doctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<QueryDoctorArgs, 'doctorId'>>;
+  doctors?: Resolver<Maybe<Array<ResolversTypes['Doctor']>>, ParentType, ContextType, RequireFields<QueryDoctorsArgs, 'clinicId'>>;
   specialty?: Resolver<Maybe<ResolversTypes['Specialty']>, ParentType, ContextType, RequireFields<QuerySpecialtyArgs, 'id'>>;
 };
 
@@ -284,9 +339,17 @@ export type ClinicResolvers<ContextType = any, ParentType extends ResolversParen
 };
 
 export type DoctorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Doctor'] = ResolversParentTypes['Doctor']> = {
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  celphone?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  complement?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cro?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   specialties?: Resolver<Maybe<Array<Maybe<ResolversTypes['Specialty']>>>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
