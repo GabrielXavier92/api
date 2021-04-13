@@ -1,10 +1,10 @@
 import { AuthenticatedMiddleware } from '../../auth/utils';
-import { AuthorizatedMiddleware } from './utils';
+import { AuthorizatedClinicMiddleware } from './utils';
 
 const MutationMiddleware = {
   Mutation: {
-    updateClinic: [AuthenticatedMiddleware, AuthorizatedMiddleware(['ADMIN'])],
-    deleteClinic: [AuthenticatedMiddleware, AuthorizatedMiddleware(['ADMIN'])],
+    updateClinic: [AuthenticatedMiddleware, AuthorizatedClinicMiddleware(['ADMIN'])],
+    deleteClinic: [AuthenticatedMiddleware, AuthorizatedClinicMiddleware(['ADMIN'])],
   },
 };
 

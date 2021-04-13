@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export { default as AuthorizatedMiddleware } from './authorizated';
+export { default as AuthorizatedClinicMiddleware } from './authorizatedClinic';

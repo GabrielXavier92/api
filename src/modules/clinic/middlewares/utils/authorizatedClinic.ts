@@ -1,10 +1,10 @@
 import { AuthenticationError } from 'apollo-server-errors';
 
-const AuthorizatedMiddleware = (roles: string[]) => (
+const AuthorizatedClinicMiddleware = (roles: string[]) => (
   { args, context }: { args: any; context: GraphQLModules.Context },
   next: any,
 ) => {
-  if (!context.user?.clinics.length) throw new AuthenticationError('You do not have clinics already');
+  if (!context.user?.clinics.length) throw new AuthenticationError('You do not have clinics yet');
 
   const hasArgs = !!args.clinicId;
   // check if user have clinic and have the right role
@@ -19,4 +19,4 @@ const AuthorizatedMiddleware = (roles: string[]) => (
   return next();
 };
 
-export default AuthorizatedMiddleware;
+export default AuthorizatedClinicMiddleware;
