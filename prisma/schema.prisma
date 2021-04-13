@@ -24,6 +24,9 @@ model Clinic {
   id String          @id @default(uuid())
   UserOnClinic UserOnClinic[]
   User User @relation(fields: [ownerId], references: [id])
+  Patient Patient[]
+  Doctor Doctor[]
+  Specialty Specialty[]
   ownerId String
   name String
   country String?
@@ -46,3 +49,53 @@ model UserOnClinic {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Patient {
+  id String          @id @default(uuid())
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+  clinicId String
+  name String
+  celphone Int?
+  email String?
+  country String?
+  state String?
+  city String?
+  address String?
+  number Int?
+  complement String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Doctor {
+  id String          @id @default(uuid())
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+  clinicId String
+  specialties Specialty[] @relation(references: [id])
+  name String
+  cro String
+  celphone Int?
+  email String?
+  country String?
+  state String?
+  city String?
+  address String?
+  number Int?
+  complement String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Specialty {
+  id String          @id @default(uuid())
+  clinic Clinic @relation(fields: [clinicId], references: [id])
+  clinicId String
+  doctors Doctor[]  @relation(references: [id])
+  name String
+  code Int?
+  complement String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
