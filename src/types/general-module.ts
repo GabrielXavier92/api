@@ -18,12 +18,15 @@ export type Mutation = {
   __typename?: 'Mutation';
   createClinic: CreatedClinic;
   createDoctor: Doctor;
+  createSpecialty: Specialty;
   deleteClinic?: Maybe<Scalars['Boolean']>;
   deleteDoctor?: Maybe<Scalars['Boolean']>;
+  deleteSpecialty?: Maybe<Scalars['Boolean']>;
   signIn?: Maybe<Auth>;
   signUp?: Maybe<Auth>;
   updateClinic: Clinic;
   updateDoctor: Doctor;
+  updateSpecialty: Specialty;
 };
 
 
@@ -37,6 +40,11 @@ export type MutationCreateDoctorArgs = {
 };
 
 
+export type MutationCreateSpecialtyArgs = {
+  specialtyInput?: Maybe<SpecialtyInput>;
+};
+
+
 export type MutationDeleteClinicArgs = {
   clinicId: Scalars['ID'];
 };
@@ -44,6 +52,11 @@ export type MutationDeleteClinicArgs = {
 
 export type MutationDeleteDoctorArgs = {
   doctorId: Scalars['ID'];
+};
+
+
+export type MutationDeleteSpecialtyArgs = {
+  specialtyId: Scalars['ID'];
 };
 
 
@@ -68,6 +81,12 @@ export type MutationUpdateDoctorArgs = {
   doctorInput: DoctorInput;
 };
 
+
+export type MutationUpdateSpecialtyArgs = {
+  specialtyId: Scalars['ID'];
+  specialtyInput?: Maybe<SpecialtyInput>;
+};
+
 export type Auth = {
   __typename?: 'Auth';
   token: Scalars['String'];
@@ -90,6 +109,7 @@ export type Query = {
   clinics?: Maybe<Array<Maybe<Clinic>>>;
   doctor: Doctor;
   doctors?: Maybe<Array<Doctor>>;
+  specialties: Array<Specialty>;
   specialty?: Maybe<Specialty>;
 };
 
@@ -109,8 +129,13 @@ export type QueryDoctorsArgs = {
 };
 
 
+export type QuerySpecialtiesArgs = {
+  clinicId: Scalars['ID'];
+};
+
+
 export type QuerySpecialtyArgs = {
-  id: Scalars['ID'];
+  specialtyId: Scalars['ID'];
 };
 
 export type CreatedClinic = {
@@ -175,6 +200,12 @@ export type DoctorInput = {
 export type Specialty = {
   __typename?: 'Specialty';
   id: Scalars['ID'];
+  name: Scalars['String'];
+  code?: Maybe<Scalars['String']>;
+};
+
+export type SpecialtyInput = {
+  clinicId: Scalars['ID'];
   name: Scalars['String'];
   code?: Maybe<Scalars['String']>;
 };
@@ -273,6 +304,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']>;
   DoctorInput: DoctorInput;
   Specialty: ResolverTypeWrapper<Specialty>;
+  SpecialtyInput: SpecialtyInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -293,17 +325,21 @@ export type ResolversParentTypes = {
   Float: Scalars['Float'];
   DoctorInput: DoctorInput;
   Specialty: Specialty;
+  SpecialtyInput: SpecialtyInput;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createClinic?: Resolver<ResolversTypes['CreatedClinic'], ParentType, ContextType, RequireFields<MutationCreateClinicArgs, 'clinicInput'>>;
   createDoctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<MutationCreateDoctorArgs, 'doctorInput'>>;
+  createSpecialty?: Resolver<ResolversTypes['Specialty'], ParentType, ContextType, RequireFields<MutationCreateSpecialtyArgs, never>>;
   deleteClinic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteClinicArgs, 'clinicId'>>;
   deleteDoctor?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteDoctorArgs, 'doctorId'>>;
+  deleteSpecialty?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteSpecialtyArgs, 'specialtyId'>>;
   signIn?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'signInInput'>>;
   signUp?: Resolver<Maybe<ResolversTypes['Auth']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'signUpInput'>>;
   updateClinic?: Resolver<ResolversTypes['Clinic'], ParentType, ContextType, RequireFields<MutationUpdateClinicArgs, 'clinicId' | 'clinicInput'>>;
   updateDoctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<MutationUpdateDoctorArgs, 'doctorId' | 'doctorInput'>>;
+  updateSpecialty?: Resolver<ResolversTypes['Specialty'], ParentType, ContextType, RequireFields<MutationUpdateSpecialtyArgs, 'specialtyId'>>;
 };
 
 export type AuthResolvers<ContextType = any, ParentType extends ResolversParentTypes['Auth'] = ResolversParentTypes['Auth']> = {
@@ -316,7 +352,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   clinics?: Resolver<Maybe<Array<Maybe<ResolversTypes['Clinic']>>>, ParentType, ContextType>;
   doctor?: Resolver<ResolversTypes['Doctor'], ParentType, ContextType, RequireFields<QueryDoctorArgs, 'doctorId'>>;
   doctors?: Resolver<Maybe<Array<ResolversTypes['Doctor']>>, ParentType, ContextType, RequireFields<QueryDoctorsArgs, 'clinicId'>>;
-  specialty?: Resolver<Maybe<ResolversTypes['Specialty']>, ParentType, ContextType, RequireFields<QuerySpecialtyArgs, 'id'>>;
+  specialties?: Resolver<Array<ResolversTypes['Specialty']>, ParentType, ContextType, RequireFields<QuerySpecialtiesArgs, 'clinicId'>>;
+  specialty?: Resolver<Maybe<ResolversTypes['Specialty']>, ParentType, ContextType, RequireFields<QuerySpecialtyArgs, 'specialtyId'>>;
 };
 
 export type CreatedClinicResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreatedClinic'] = ResolversParentTypes['CreatedClinic']> = {
