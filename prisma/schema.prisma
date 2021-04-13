@@ -93,8 +93,7 @@ model Specialty {
   clinicId String
   doctors Doctor[]  @relation(references: [id])
   name String
-  code Int?
-  complement String?
+  code String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
