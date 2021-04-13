@@ -7,9 +7,9 @@
     "dev": "NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
     "codegen": "yarn graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma-generate-schemas": "npx prisma generate",
     "prisma-push": "npx prisma db push --preview-feature",
-    "prisma-migrate": "npx prisma migrate dev --preview-feature"
+    "prisma-migrate": "npx prisma migrate dev --preview-feature",
+    "prisma-generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
